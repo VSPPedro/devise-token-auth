@@ -15,8 +15,8 @@ RSpec.describe 'Users API', type: :request do
 
     context 'when the user exists' do
       it 'returns the user' do
-        user_response = JSON.parse(response.body)
-        expect(user_response['id']).to eq(user_id)
+        user_response = JSON.parse(response.body, symbolize_names: true)
+        expect(user_response[:id]).to eq(user_id)
       end
 
       it 'returns status code 200' do
@@ -31,8 +31,10 @@ RSpec.describe 'Users API', type: :request do
         expect(response).to have_http_status(404)
       end
     end
+
   end
-  
+
+
   describe 'POST /users' do
     before do
       headers = { 'Accept' => 'application/vnd.taskmanager.v1' }
@@ -47,8 +49,8 @@ RSpec.describe 'Users API', type: :request do
       end
 
       it 'returns json data for the created user' do
-        user_response = JSON.parse(response.body)
-        expect(user_response['email']).to eq(user_params[:email])
+        user_response = JSON.parse(response.body, symbolize_names: true)
+        expect(user_response[:email]).to eq(user_params[:email])
       end
     end
 
@@ -60,8 +62,8 @@ RSpec.describe 'Users API', type: :request do
       end
 
       it 'returns the json data for the erros' do
-        user_response = JSON.parse(response.body)
-        expect(user_response).to have_key('errors')
+        user_response = JSON.parse(response.body, symbolize_names: true)
+        expect(user_response).to have_key(:errors)
       end
     end
   end
