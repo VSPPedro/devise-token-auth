@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :authenticate_with_token!, only: [:update, :destroy]
+
   respond_to :json
 
   def show
@@ -9,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
       head 404
     end
   end
-  
+
   def create
     user = User.new(user_params)
 
@@ -19,9 +21,9 @@ class Api::V1::UsersController < ApplicationController
       render json: { errors: user.errors }, status: 422
     end
   end
-  
+
   def update
-    user = User.find(params[:id])
+    user = current_user
 
     if user.update(user_params)
       render json: user, status: 200
@@ -29,13 +31,12 @@ class Api::V1::UsersController < ApplicationController
       render json: { errors: user.errors }, status: 422
     end
   end
-  
+
   def destroy
-    user = User.find(params[:id])
-    user.destroy
+    current_user.destroy
     head 204
   end
-  
+
   private
 
   def user_params
