@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions API', type: :request do
-  before { host! 'api.taskmanager.dev' }
+  before { host! 'api.jogamito.dev' }
   let(:user) { create(:user) }
   let(:headers) do
     {
-      'Accept' => 'application/vnd.taskmanager.v2',
+      'Accept' => 'application/vnd.jogamito.v2',
       'Content-Type' => Mime[:json].to_s
     }
   end

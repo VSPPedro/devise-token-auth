@@ -5,13 +5,13 @@ RSpec.describe 'Users API', type: :request do
   let(:user_id) { user.id }
   let(:headers) do
     {
-      'Accept' => 'application/vnd.taskmanager.v1',
+      'Accept' => 'application/vnd.jogamito.v1',
       'Content-Type' => Mime[:json].to_s,
       'Authorization' => user.auth_token
     }
   end
 
-  before { host! 'api.taskmanager.dev' }
+  before { host! 'api.jogamito.dev' }
 
 
   describe 'GET /users/:id' do
@@ -77,7 +77,7 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when the request params are valid' do
-      let(:user_params) { { email: 'new_email@taskmanager.com' } }
+      let(:user_params) { { email: 'new_email@jogamito.com' } }
 
       it 'retuns status code 200' do
         expect(response).to have_http_status(200)
